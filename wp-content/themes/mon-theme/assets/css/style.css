@@ -1,7 +1,79 @@
 body {
     font-family: 'Raleway', sans-serif;
 }
+:root {
+    --blue-text:#08AEEA;
+}
+.navbar-collapse .nav-link {
+    font-size: 1rem !important;
+    font-weight: 700;
+    padding-left: 3rem !important;
+}
 
-#navbarNav .nav-link {
-    font-size: 5rem !important;
+.banner {
+    background-image: url('/wp-content/themes/mon-theme/assets/img/banner-cover.jpg');
+    position: relative;
+    height: 60vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+
+}
+
+.banner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(126, 249, 230, 0.4);
+}
+
+.banner h1 {
+    position: relative;
+    font-weight: 700;
+    color: #fff;
+}
+
+.banner-footer {
+    background-image: url('/wp-content/themes/mon-theme/assets/img/footer.png');
+    position: relative;
+    text-align: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    height: 100vh;
+}
+
+.bg-gray {
+    background-color: #39464C;
+}
+
+.img-cover-card {
+    height: 20vh;
+}
+
+/* Card produit catalogue */
+.img-cover-card {
+    width: 100%;
+    height: 150px;
+}
+@media all and (min-width: 992px) {
+    .img-cover-card {
+        height: 250px;
+    }
+}
+
+.title-blue {
+    color:var(--blue-text);
+}
+
+.gradient-btn {
+    background: linear-gradient(to top, #08AEEA,#1FDEB3);
 }
