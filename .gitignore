@@ -1,23 +1,51 @@
-# Ignore tout à la racine, sauf .gitignore et "wp-content"
-*
-!.gitignore
-!wp-content
+*.DS_Store
+# Wordpress - ignore core, configuration, examples, uploads and logs.
+# https://github.com/github/gitignore/blob/main/WordPress.gitignore
 
-# Ignore le contenu de "wp-content" sauf "plugins", "themes" et "mu-plugins"
-wp-content/*
-!wp-content/plugins/
-!wp-content/themes/
-!wp-content/mu-plugins/
+# Core
+#
+# Note: if you want to stage/commit WP core files
+# you can delete this whole section/until Configuration.
+/wp-admin/
+/wp-content/index.php
+/wp-content/languages
+/wp-content/plugins/index.php
+/wp-content/themes/index.php
+/wp-includes/
+/index.php
+/license.txt
+/readme.html
+/wp-*.php
+/xmlrpc.php
 
-# Ignore le contenu de "plugins" sauf le dossier de NOTRE/NOS plugin(s) personnalisé(s) (si il y en a)
-# (la ligne ! sera à répêter pour chaque plugin à commiter...)
-wp-content/plugins/*
-#!wp-content/plugins/mon-plugin/
+# Configuration
+wp-config.php
 
-# et du "must-use" nommé ici "important.php" (si il y en a)
-#wp-content/mu-plugins/*
-#!wp-content/mu-plugins/important.php
+# Example themes
+/wp-content/themes/twenty*/
 
-# Ignore le contenu de "themes" sauf le dossier de NOTRE thème (si il y en a)
-wp-content/themes/*
-!wp-content/themes/mon-theme/
+# Example plugin
+/wp-content/plugins/hello.php
+
+# Uploads
+/wp-content/uploads/
+
+# Log files
+*.log
+
+# htaccess
+/.htaccess
+
+# All plugins
+#
+# Note: If you wish to whitelist plugins,
+# uncomment the next line
+/wp-content/plugins
+
+# All themes
+#
+# Note: If you wish to whitelist themes,
+# uncomment the next line
+/wp-content/themes/twentytwo
+/wp-content/themes/twentythree
+/wp-content/themes/twentyfour
