@@ -14,42 +14,48 @@
                 <img src="/wp-content/themes/mon-theme/assets/img/shape.svg" height="6" alt="">
             </div>
             <div class="row">
+                <?php 
+                // 1. On définit les arguments pour définir ce que l'on souhaite récupérer
+                $args = array(
+                    'post_type' => 'post',
+                    'showposts' => 3,
+                );
+
+                // 2. On exécute la WP Query
+                $my_query = new WP_Query( $args );
+
+                if( have_posts() ) : while( $my_query->have_posts() ) : $my_query->the_post();
+                $urlthumbnail = get_the_post_thumbnail_url();
+                $altthumbnail = get_the_post_thumbnail_caption();
+                $category = get_the_category ();
+                ?>
                 <div class="col-lg-4">
+                    <div class="card rounded-0 border-0 mb-3 mx-xl-5">
+                        <img src="<?= $urlthumbnail ?>" class="img-cover-card object-fit-cover" alt="<?= $altthumbnail ?>">
+                        <div class="card-img-overlay px-0 text-end">
+                            <h5><span class="badge text-bg-warning rounded-0 px-3 text-decoration-none"><?= $category[0]->cat_name ?></span></h5>
+                        </div>
+                        <div class="card-body p-lg-5">
+                            <h5><a class="text-decoration-none fw-bold title-blue stretched-link" href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h5>
+                            <p class="card-text"><?php the_excerpt() ?></p>
+                        </div>
+                    </div>
+                </div>
+                <?php endwhile; endif; ?>
+
+                <!-- <div class="col-lg-4">
                     <div class="card rounded-0 border-0 mb-3 mx-xl-5">
                         <img src="/wp-content/themes/mon-theme/assets/img/img-card.jpg" class="img-cover-card object-fit-cover" alt="...">
                         <div class="card-img-overlay px-0 text-end">
                             <h5><span class="badge text-bg-warning rounded-0 px-3">Catégorie</span></h5>
                         </div>
                         <div class="card-body p-lg-5">
-                            <h5 class="card-title fw-bold title-blue">Titre de l'article</h5>
+                            <h5><a class="text-decoration-none fw-bold title-blue stretched-link" href="">Titre de l'article</a></h5>
                             <p class="card-text">Description de l'article sur plusieurs lignes.</p>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="card rounded-0 border-0 mb-3 mx-xl-5">
-                        <img src="/wp-content/themes/mon-theme/assets/img/banner-cover.jpg" class="img-cover-card object-fit-cover" alt="...">
-                        <div class="card-img-overlay px-0 text-end">
-                            <h5><span class="badge text-bg-warning rounded-0 px-3">Catégorie</span></h5>
-                        </div>
-                        <div class="card-body p-lg-5">
-                            <h5 class="card-title fw-bold title-blue">Titre de l'article</h5>
-                            <p class="card-text">Description de l'article sur plusieurs lignes.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="card rounded-0 border-0 mb-3 mx-xl-5">
-                        <img src="/wp-content/themes/mon-theme/assets/img/img-card.jpg" class="img-cover-card object-fit-cover" alt="...">
-                        <div class="card-img-overlay px-0 text-end">
-                            <h5><span class="badge text-bg-warning rounded-0 px-3">Catégorie</span></h5>
-                        </div>
-                        <div class="card-body p-lg-5">
-                            <h5 class="card-title fw-bold title-blue">Titre de l'article</h5>
-                            <p class="card-text">Description de l'article sur plusieurs lignes.</p>
-                        </div>
-                    </div>
-                </div>
+                </div> -->
+
             </div>
         </div>
     </section>
@@ -60,10 +66,15 @@
                 <div class="col-6 col-lg-4 mb-3 text-center">
                     <h5 class="fw-bold">Accès rapide</h5>
                     <ul class="nav flex-column" data-bs-theme="dark">
-                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Accueil</a></li>
-                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Catégorie 1</a></li>
-                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Catégorie 2</a></li>
-                        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Catégorie 3</a></li>
+                        <li class="nav-item mb-2"><a href="<?php echo home_url( '/' ); ?>" class="nav-link p-0 text-body-secondary">Accueil</a></li>
+                        <?php
+                        $menuitems = wp_get_nav_menu_items( 'Menu' );
+                        
+                        foreach ( $menuitems as $item ) { ?>
+                        <li class="nav-item mb-2">
+                            <a class="nav-link p-0 text-body-secondary" href="<?= $item->url ?>"><?= $item->title ?></a>
+                        </li>
+                        <?php } ?>
                     </ul>
                 </div>
                 <div class="col-6 col-lg-4 mb-3 text-center">
@@ -91,7 +102,7 @@
     </section>
 </footer>
 <?php wp_footer(); ?>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script> -->
 
 </body>
 
